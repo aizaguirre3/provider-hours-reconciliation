@@ -1,0 +1,21 @@
+# Example cron configuration to run the weekly reconciliation.
+# Drop into /etc/cron.d/ or `crontab -e`.
+#
+# Adjust paths to match your install:
+#   - PROJECT_DIR: where this repo is checked out
+#   - TIMESHEET_DIR: where vendor uploads land
+#   - REPORT_DIR: where the weekly report should be written
+#
+# Convention: vendor uploads timesheet_YYYY-MM-DD.xlsx every Monday morning
+# for the prior week. Report runs Tuesday at 7am.
+
+PROJECT_DIR=/opt/provider-hours-reconciliation
+TIMESHEET_DIR=/var/data/timesheets
+REPORT_DIR=/var/data/reports
+
+# m h dom mon dow command
+0 7 * * 2  cd $PROJECT_DIR && .venv/bin/python -m cli.main run \
+              "$TIMESHEET_DIR/timesheet_$(date -d 'last monday' +\%Y-\%m-\%d).xlsx" \
+              --db data/master.db \
+              --report "$REPORT_DIR/weekly_$(date -d 'last monday' +\%Y-\%m-\%d).xlsx" \
+              >> /var/log/provider-hours.log 2>&1
