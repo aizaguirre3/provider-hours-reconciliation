@@ -90,13 +90,24 @@ provider-hours-reconciliation/
 | `hours_worked` | numeric; negative or null rows are dropped + counted |
 | `on_call` | accepts Y/N/yes/no/1/0/true/false |
 
-## Sample run output
+## Sample output
+
+A real input + output pair lives in [`samples/`](samples/) so reviewers can see the deliverable without running anything:
+
+- [`samples/timesheet_sample.xlsx`](samples/timesheet_sample.xlsx) — the raw weekly timesheet upload (53 rows, with realistic dirt: whitespace, mixed date formats, Y/N variants, an unknown provider, a negative-hours data error)
+- [`samples/weekly_report_sample.xlsx`](samples/weekly_report_sample.xlsx) — the 5-sheet formatted report the script produces from that input
+
+CLI summary line for the sample:
 
 ```
 13 providers | actual 536.0h / contracted 468.0h | util 114.5% | exceptions: 9 | unknown: 1 | dropped rows: 1
 ```
 
-The companion `weekly_report.xlsx` has 5 sheets:
+<!-- Drop a screenshot of the Summary or Provider Utilization sheet here once captured:
+![Weekly report — Summary sheet](docs/report_summary.png)
+-->
+
+The report has 5 sheets:
 
 1. **Summary** — total providers, contracted hours, actual hours, utilization, estimated cost, exception counts, dropped rows
 2. **Provider Utilization** — one row per active provider with all metrics + exception flags

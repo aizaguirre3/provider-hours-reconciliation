@@ -17,3 +17,5 @@ data/*.db
 data/*.xlsx
 samples/*.xlsx
 !samples/.gitkeep
+!samples/timesheet_sample.xlsx
+!samples/weekly_report_sample.xlsx
